@@ -1,3 +1,4 @@
+import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -22,7 +23,7 @@ export default function Home() {
           imgSrc="/assets/icons/search.svg"
           otherClasses="flex-1"
         />{" "}
-        Filters
+        <Filter />
       </div>
     </>
   );
