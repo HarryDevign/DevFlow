@@ -35,7 +35,7 @@ const questions = [
       avatar: "avatar1.jpg",
     },
     upvotes: 10,
-    views: 1000,
+    views: 220,
     answers: 5,
     createdAt: new Date("2023-02-27"),
   },
@@ -70,8 +70,69 @@ const questions = [
     answers: 8,
     createdAt: new Date("2024-02-28"),
   },
+  {
+    _id: "3",
+    title: "What are the benefits of using React?",
+    questionToTags: [
+      {
+        questionId: "2",
+        tagId: "103",
+        tag: {
+          id: "103",
+          name: "React",
+        },
+      },
+      {
+        questionId: "2",
+        tagId: "102",
+        tag: {
+          id: "102",
+          name: "Programming",
+        },
+      },
+    ],
+    author: {
+      _id: "user2",
+      name: "Jane Smith",
+      avatar: "avatar2.jpg",
+    },
+    upvotes: 15,
+    views: 120,
+    answers: 8,
+    createdAt: new Date("2024-02-28"),
+  },
+  {
+    _id: "4",
+    title: "What are the benefits of using React?",
+    questionToTags: [
+      {
+        questionId: "2",
+        tagId: "103",
+        tag: {
+          id: "103",
+          name: "React",
+        },
+      },
+      {
+        questionId: "2",
+        tagId: "102",
+        tag: {
+          id: "102",
+          name: "Programming",
+        },
+      },
+    ],
+    author: {
+      _id: "user2",
+      name: "Jane Smith",
+      avatar: "avatar2.jpg",
+    },
+    upvotes: 15,
+    views: 120,
+    answers: 8,
+    createdAt: new Date("2024-02-28"),
+  },
 ];
-
 
 export default function Home() {
   return (
