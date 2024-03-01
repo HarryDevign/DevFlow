@@ -20,12 +20,13 @@ import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const Question = () => {
-    const type: any = "create";
+  const type: any = "create";
 
   const editorRef = useRef(null);
-   
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Define your form.
@@ -33,26 +34,27 @@ const Question = () => {
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
       title: "",
-      explaination: "",
+      explanation: "",
       tags: [],
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    setIsSubmitting(true)
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+    setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-        try {
-            // Make an async call to API => Create a question
-            // Contain all form data
-            // Navigate to home page
-        } catch (error) {
-            
-        } finally {
-            setIsSubmitting(false);
-        }
+    try {
+      // Make an async call to API => Create a question
+      // Contain all form data
+      // Navigate to home page
+
+      await createQuestion({});
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
     }
+  }
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -83,12 +85,12 @@ const Question = () => {
     }
   };
 
-  const handleTagRemove = (tag: string, field: any ) => {
-    const newTags = field.value.filter((t: string) => t !== tag)
+  const handleTagRemove = (tag: string, field: any) => {
+    const newTags = field.value.filter((t: string) => t !== tag);
 
-    form.setValue("tags", newTags)
-  }
-  
+    form.setValue("tags", newTags);
+  };
+
   return (
     <Form {...form}>
       <form
@@ -119,11 +121,11 @@ const Question = () => {
         />
         <FormField
           control={form.control}
-          name="explaination"
+          name="explanation"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Detailed explaination of your problems?
+                Detailed explanation of your problems?
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl className="mt-3">
@@ -133,6 +135,8 @@ const Question = () => {
                     // @ts-ignore
                     (editorRef.current = editor)
                   }
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
@@ -215,17 +219,16 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="primary-gradient w-fit !text-light-900" disabled={isSubmitting}>
-            {isSubmitting ? (
-                <>
-                {type === 'edit' ? "Editing..." : "Posting..."}
-                </>
-            ):(
-                <>
-                {type === 'edit' ? "Edit Question" : "Ask a Question"}
-                </>
-
-            )}
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
         </Button>
       </form>
     </Form>
