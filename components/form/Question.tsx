@@ -16,13 +16,17 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { QuestionsSchema } from "@/lib/validation";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 
 const Question = () => {
+    const type: any = "create";
+
   const editorRef = useRef(null);
+   
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -36,10 +40,19 @@ const Question = () => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+    setIsSubmitting(true)
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+        try {
+            // Make an async call to API => Create a question
+            // Contain all form data
+            // Navigate to home page
+        } catch (error) {
+            
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -202,7 +215,18 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="primary-gradient w-fit !text-light-900" disabled={isSubmitting}>
+            {isSubmitting ? (
+                <>
+                {type === 'edit' ? "Editing..." : "Posting..."}
+                </>
+            ):(
+                <>
+                {type === 'edit' ? "Edit Question" : "Ask a Question"}
+                </>
+
+            )}
+        </Button>
       </form>
     </Form>
   );
