@@ -43,7 +43,6 @@ const Question = ({mongoUserId}: Props) => {
       title: "",
       explanation: "",
       tags: [],
-
     },
   });
 

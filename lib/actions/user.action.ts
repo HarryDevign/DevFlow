@@ -1,7 +1,7 @@
-"use server";
+"use server"
 
 import User from "@/database/user.model";
-import { connectToDatabase } from "../mongoose";
+import { connectToDatabase } from "../mongoose"
 
 export async function getUserById(params: any) {
   try {
@@ -10,9 +10,10 @@ export async function getUserById(params: any) {
     const { userId } = params;
 
     const user = await User.findOne({ clerkId: userId });
+
     return user;
   } catch (error) {
-    console.log("Error in getting user by id", error);
+    console.log(error);
     throw error;
   }
 }
