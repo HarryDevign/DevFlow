@@ -1,10 +1,11 @@
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Theme from "./Theme";
 import MobileNav from "./MobileNav";
 import GlobalSearch from "../search/GlobalSearch";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
@@ -36,6 +37,38 @@ const Navbar = () => {
             }}
           />
         </SignedIn>
+
+        <SignedOut>
+          <div className="flex gap-3">
+            <Link href="/sign-in">
+              <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+                <Image
+                  src="/assets/icons/account.svg"
+                  alt="login"
+                  width={20}
+                  height={20}
+                  className="lg:hidden"
+                />
+                <span className="primary-text-gradient max-lg:hidden">
+                  Log In
+                </span>
+              </Button>
+            </Link>
+
+            <Link href="/sign-up">
+              <Button className="small-medium primary-gradient min-h-[41px] w-full rounded-lg px-4 py-3 text-light-900 shadow-none hover:bg-primary-700">
+                <Image
+                  src="/assets/icons/sign-up.svg"
+                  alt="sign up"
+                  width={20}
+                  height={20}
+                  className="lg:hidden"
+                />
+                <span className="max-lg:hidden">Sign up</span>
+              </Button>
+            </Link>
+          </div>
+        </SignedOut>
 
         <MobileNav />
       </div>
