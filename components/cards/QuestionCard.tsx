@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 import RenderTag from "../shared/RenderTag";
 import Metric from "../shared/Metric";
+import { formatAndDivideNumber, getTimestamp } from "@/lib/utils";
 
 interface QuestionProps {
   _id: string;
@@ -14,11 +14,11 @@ interface QuestionProps {
   author: {
     _id: string;
     name: string;
-    avatar: string;
+    picture: string;
   };
   upvotes: number;
   views: number;
-  answers: number;
+  answers: Array<object>;
   createdAt: Date;
 }
 
@@ -59,9 +59,9 @@ const QuestionCard = ({
         <Metric
           imgUrl="/assets/icons/avatar.svg"
           alt="user"
-          value={author.name}
+          // value={author.name}
           title={` - asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author._id}`}
+          // href={`/profile/${author._id}`}
           isAuthor
           textStyles="body-medium text-dark400_light700"
         />
@@ -77,7 +77,7 @@ const QuestionCard = ({
           <Metric
             imgUrl="/assets/icons/message.svg"
             alt="message"
-            value={formatAndDivideNumber(answers)}
+            value={formatAndDivideNumber(answers.length)}
             title=" Answers"
             textStyles="small-medium text-dark400_light800"
           />
