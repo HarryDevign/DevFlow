@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
@@ -52,8 +53,6 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
 
   if (eventType === "user.created") {
@@ -92,9 +91,9 @@ export async function POST(req: Request) {
   if (eventType === "user.deleted") {
     const { id } = evt.data
 
-    const deleteUser = await deleteUser({
-        clerkId: id,
-    })
+    // const deleteUser = await deleteUser({
+    //     clerkId: id!,
+    // })
 
     return NextResponse.json({ message: "OK", user: deleteUser });
   }
